@@ -9,12 +9,28 @@ include_once "private/connection.php";
 $query = "SELECT * FROM visits LEFT JOIN (visitors, users) ON " .
     " (visitors.id=visits.visitor_id AND users.id=visits.user_id)";
 
+if(isset($_GET['search']))
+{
+    $department = $_GET['department'];
+    $query .= "where department = '$department'";
+}
 $visits = mysqli_query($db, $query);
-
+$query ="SELECT * FROM visits";
+$users =mysqli_query($db, $query);
 ?>
 
 <!-- heading for the table -->
 <h3>Visitors Records</h3>
+
+<form>
+    <div class= "form-group col-sm-3">
+        <input type="text" name="department" class= "form-control" placeholder="Department"></br></br>
+    </div>
+    <div class ="form-group col-sm-3">
+        <input type="submit" name="search" class="btn btn-success form-control" value="Filter"></br></br>
+    </div>
+</form>
+
 <table class="table table-striped">
     <tr>
         <th>Visitor</th>
@@ -26,6 +42,7 @@ $visits = mysqli_query($db, $query);
         <th>Time Out</th>
         <th>Served</th>
     </tr>
+
     <!-- table data -->
     <?php
     // fetch each row

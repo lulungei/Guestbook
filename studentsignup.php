@@ -20,7 +20,5 @@ $visitorId = mysqli_insert_id($db);
 
 header("Location: visit.php?visitor=$visitorId");
 
-
-
 ?> 
 
