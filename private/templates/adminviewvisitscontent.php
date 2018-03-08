@@ -12,10 +12,12 @@ $query = "SELECT * FROM visits LEFT JOIN (visitors, users) ON " .
 if(isset($_GET['search']))
 {
     $department = $_GET['department'];
+    $user = $_GET['user'];
     $query .= "where department = '$department'";
+    $query .= " AND user_id='$user'";
 }
 $visits = mysqli_query($db, $query);
-$query ="SELECT * FROM visits";
+$query ="SELECT * FROM users";
 $users =mysqli_query($db, $query);
 ?>
 
@@ -25,6 +27,14 @@ $users =mysqli_query($db, $query);
 <form>
     <div class= "form-group col-sm-3">
         <input type="text" name="department" class= "form-control" placeholder="Department"></br></br>
+    </div>
+    <div class="form-group col-sm-3">
+        <select name="user" class="form-control col-sm-3">
+            <option value="">Employee</option>
+            <?php while($user = mysqli_fetch_assoc($users)) { ?>
+                <option value="<?= $user[ "id"] ?>"><?= $user["firstName"]." ".$user["lastName"]?></option>
+            <?php } ?>
+        </select>
     </div>
     <div class ="form-group col-sm-3">
         <input type="submit" name="search" class="btn btn-success form-control" value="Filter"></br></br>
@@ -41,6 +51,7 @@ $users =mysqli_query($db, $query);
         <th>Time In</th>
         <th>Time Out</th>
         <th>Served</th>
+        <th>Purpose</th>
     </tr>
 
     <!-- table data -->
@@ -56,6 +67,7 @@ $users =mysqli_query($db, $query);
             ."<td>". $visit["date_in"] . "</td>"
             ."<td>". $visit["date_out"] ."</td>"
             ."<td>". ($visit["visitor_served"]? "Yes" : "No") ."</td>"
+            ."<td>". $visit["purpose"] ."</td>"
             ."</tr>";
     }
     ?>

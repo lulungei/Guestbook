@@ -5,6 +5,7 @@ include_once "private/connection.php";
 // get visitor id and department from the page's query parameters
 $visitorId = $_GET['visitor'];
 $department = $_GET['department'];
+$purpose = $_GET['purpose'];
 
 
 // fetch the visitor from the database by id
@@ -24,6 +25,7 @@ $result = mysqli_query($db, $query) or die(mysqli_error($db));
 <h3>Welcome, <?= $visitor["name"] ?>. Who do you want to see?</h3>
 <form method="POST" action="createvisit.php">
     <input type="hidden" name="visitor" value="<?= $visitor['id'] ?>" >
+    <input type="hidden" name="purpose" value="<?=$purpose ?>" >
     <div class="form-group">
         <label>Choose employee to visit</label>
         <select name="employee" class="form-control" required>

@@ -20,11 +20,21 @@ if(!$visitor) die('Visitor not found');
     <input type="hidden" name="visitor" value="<?= $visitor['id'] ?>" >
     <div class="form-group">
         <label>Select department to visit</label>
-        <select name="department" class="form-control" required>
+        <select name="department" class="form-control">
             <option value="HR">HR</option>
             <option value="Marketing">Marketing</option>
             <option value="Sales">Sales</option>
             <option value="CEO">CEO</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Purpose for visit</label>
+        <select name="purpose" class="form-control" required>
+            <option value="Admissions">Admissions</option>
+            <option value="Enquiries">Enquiries</option>
+            <option value="Sports">Sports</option>
+            <option value="Event">Event</option>
+            <option value="Other">Other</option>
         </select>
     </div>
     <div class="form-group">
