@@ -11,10 +11,23 @@ $query = "SELECT * FROM visits LEFT JOIN (visitors, users) ON " .
 
 if(isset($_GET['search']))
 {
-    $department = $_GET['department'];
+    $keyword = $_GET['keyword'];
     $user = $_GET['user'];
-    $query .= "where department = '$department'";
-    $query .= " AND user_id='$user'";
+    $whereClause = "";
+    if ($keyword) {
+        $whereClause .= "where (department LIKE '%$keyword%'
+            OR name LIKE '%$keyword%'
+            OR id_number LIKE '%$keyword%'
+            OR phone_number LIKE '%$keyword%'
+            OR purpose LIKE '%$keyword%'
+            OR date_in LIKE '%$keyword%'
+            OR date_out LIKE '%$keyword%'
+            )";
+    }
+    if ($user) {
+        $whereClause .= $whereClause? " AND user_id='$user'" : " WHERE user_id='$user'";
+    }
+    $query .= $whereClause;
 }
 $visits = mysqli_query($db, $query);
 $query ="SELECT * FROM users";
@@ -26,7 +39,7 @@ $users =mysqli_query($db, $query);
 
 <form>
     <div class= "form-group col-sm-3">
-        <input type="text" name="department" class= "form-control" placeholder="Department"></br></br>
+        <input type="text" name="keyword" class= "form-control" placeholder="Search keyword"></br></br>
     </div>
     <div class="form-group col-sm-3">
         <select name="user" class="form-control col-sm-3">
