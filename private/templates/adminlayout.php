@@ -20,6 +20,7 @@ include_once "private/templates/header.php";
                 <li class="list-group-item"><a href="adminviewusers.php">View Employees</a></li>
                 <li class="list-group-item"><a href="adminaddusers.php">Add Employee</a></li>
                 <li class="list-group-item"><a href="adminviewvisits.php">View Visits</a></li>
+                <li class="list-group-item"><a href="admincharts.php">Visits Chart</a></li>
                 <li class="list-group-item"><a href="logout.php">Logout</a></li>
             </ul>
         </div>
